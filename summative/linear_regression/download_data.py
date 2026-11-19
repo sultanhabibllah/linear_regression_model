@@ -17,7 +17,7 @@ NER NGA RWA STP SEN SYC SLE SOM ZAF SSD SDN TZA
 TGO TUN UGA ZMB ZWE
 """.split()
 
-# World Bank indicators we want to collect
+# World Bank indicators
 INDICATORS = {
     "youth_unemployment_rate": "SL.UEM.1524.ZS",
     "gdp_growth": "NY.GDP.MKTP.KD.ZG",
@@ -33,6 +33,7 @@ INDICATORS = {
 }
 
 BASE_URL = "https://api.worldbank.org/v2"
+
 OUTPUT = Path(__file__).resolve().parent / "data"
 OUTPUT.mkdir(parents=True, exist_ok=True)
 
@@ -42,7 +43,10 @@ session = requests.Session()
 def get_all_pages(url, params=None):
     """Download every page of an API response."""
     params = dict(params or {})
-    params.update({"format": "json", "per_page": 20000})
+    params.update({
+        "format": "json",
+        "per_page": 20000
+    })
 
     records = []
     page = 1
@@ -53,6 +57,7 @@ def get_all_pages(url, params=None):
             params={**params, "page": page},
             timeout=60,
         )
+
         response.raise_for_status()
         payload = response.json()
 
@@ -91,7 +96,10 @@ def get_countries():
             "income_group": country["incomeLevel"]["value"],
         })
 
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+
+    print(f"African countries found: {len(df)}")
+    return df
 
 
 def get_indicator(column, indicator_code):
@@ -130,10 +138,10 @@ def main():
         "year": range(START_YEAR, END_YEAR + 1)
     })
 
-    # One row per country and year
+    # Create one row for each country-year combination
     dataset = countries.merge(years, how="cross")
 
-    # Add each economic and education indicator
+    # Merge all economic, education and labour indicators
     for column, code in INDICATORS.items():
         indicator_data = get_indicator(column, code)
 
@@ -148,7 +156,7 @@ def main():
         ["country", "year"]
     ).reset_index(drop=True)
 
-    # Save dataset as CSV
+    # Save the original merged dataset
     csv_path = OUTPUT / "africa_youth_unemployment.csv"
     dataset.to_csv(csv_path, index=False)
 
@@ -157,29 +165,64 @@ def main():
         dataset.isna().mean() * 100
     ).sort_values(ascending=False)
 
+    # Rows containing all selected indicators
     complete = dataset.dropna(
         subset=list(INDICATORS)
     )
 
+    # Dataset summary
     print("\nDATASET SUMMARY")
-    print("=" * 40)
+    print("=" * 45)
+
     print(f"Total rows: {len(dataset)}")
     print(f"Countries: {dataset['country_code'].nunique()}")
     print(f"Columns: {len(dataset.columns)}")
     print(f"Complete indicator rows: {len(complete)}")
 
+    # Missing value report
     print("\nMISSING VALUES (%)")
+    print("=" * 45)
     print(missing.round(2).to_string())
 
-    print("\nFIRST FIVE ROWS")
-    print(dataset.head().to_string(index=False))
+    # New dataset quality checks
+    print("\nDATASET QUALITY CHECK")
+    print("=" * 45)
 
-    missing.to_csv(
-        OUTPUT / "missing_values.csv",
-        header=["missing_pct"],
+    duplicate_rows = dataset.duplicated(
+        subset=["country_code", "year"]
+    ).sum()
+
+    known_targets = (
+        dataset["youth_unemployment_rate"].notna().sum()
     )
 
-    print(f"\nDataset saved to: {csv_path}")
+    countries_with_targets = dataset.loc[
+        dataset["youth_unemployment_rate"].notna(),
+        "country_code"
+    ].nunique()
+
+    print(f"Duplicate country-year records: {duplicate_rows}")
+    print(f"Rows with known target: {known_targets}")
+    print(f"Rows with all indicators available: {len(complete)}")
+    print(f"Countries with target data: {countries_with_targets}")
+
+    # Preview the first five rows
+    print("\nFIRST FIVE ROWS")
+    print("=" * 45)
+    print(dataset.head().to_string(index=False))
+
+    # Save missing value report
+    missing_path = OUTPUT / "missing_values.csv"
+
+    missing.rename("missing_pct").to_csv(
+        missing_path,
+        header=True,
+    )
+
+    print("\nFILES SAVED")
+    print("=" * 45)
+    print(f"Dataset: {csv_path}")
+    print(f"Missing values report: {missing_path}")
 
 
 if __name__ == "__main__":
