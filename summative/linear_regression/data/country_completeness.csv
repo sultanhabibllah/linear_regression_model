@@ -1,0 +1,55 @@
+country_code,country,total_years,years_with_target,complete_rows,feature_availability_pct
+ZAF,South Africa,25,25,23,99.2
+MUS,Mauritius,25,25,22,98.8
+CPV,Cabo Verde,25,25,19,97.2
+GHA,Ghana,25,25,19,97.2
+RWA,Rwanda,25,25,18,97.2
+CMR,Cameroon,25,25,18,96.8
+SEN,Senegal,25,25,18,96.4
+NER,Niger,25,25,17,96.8
+TCD,Chad,25,25,17,96.8
+BFA,Burkina Faso,25,25,16,96.0
+NAM,Namibia,25,25,16,96.0
+BDI,Burundi,25,25,16,95.2
+MLI,Mali,25,25,15,95.6
+SWZ,Eswatini,25,25,15,94.0
+MDG,Madagascar,25,25,14,95.2
+STP,Sao Tome and Principe,25,25,14,94.4
+MRT,Mauritania,25,25,13,94.8
+KEN,Kenya,25,25,12,94.8
+BEN,Benin,25,25,12,94.4
+MWI,Malawi,25,25,12,94.4
+TGO,Togo,25,25,12,94.4
+TUN,Tunisia,25,25,12,93.6
+CIV,Cote d'Ivoire,25,25,11,94.4
+ETH,Ethiopia,25,25,11,94.4
+LSO,Lesotho,25,25,11,92.8
+SLE,Sierra Leone,25,25,11,91.2
+MAR,Morocco,25,25,10,93.6
+TZA,Tanzania,25,25,10,92.4
+NGA,Nigeria,25,25,9,92.8
+MOZ,Mozambique,25,25,9,90.8
+DZA,Algeria,25,25,6,92.4
+CAF,Central African Republic,25,25,6,92.0
+SDN,Sudan,25,23,6,87.2
+GIN,Guinea,25,25,5,90.8
+AGO,Angola,25,25,5,90.0
+GMB,"Gambia, The",25,25,4,91.2
+COG,"Congo, Rep.",25,25,4,88.8
+COM,Comoros,25,25,4,87.2
+COD,"Congo, Dem. Rep.",25,25,4,84.8
+LBR,Liberia,25,25,3,86.4
+EGY,"Egypt, Arab Rep.",25,25,2,90.0
+BWA,Botswana,25,25,2,89.2
+ZWE,Zimbabwe,25,25,2,79.6
+SSD,South Sudan,25,24,2,65.2
+GAB,Gabon,25,25,1,87.2
+UGA,Uganda,25,25,1,86.8
+ZMB,Zambia,25,25,0,88.0
+GNB,Guinea-Bissau,25,25,0,82.8
+GNQ,Equatorial Guinea,25,25,0,81.6
+LBY,Libya,25,25,0,81.6
+DJI,Djibouti,25,25,0,80.4
+SOM,"Somalia, Fed. Rep.",25,25,0,73.2
+ERI,Eritrea,25,25,0,68.8
+SYC,Seychelles,25,0,0,66.0
