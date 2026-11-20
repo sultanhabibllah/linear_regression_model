@@ -3,6 +3,11 @@ name = "summative"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
+    "fastapi>=0.165.0",
+    "joblib>=1.6.0",
     "pandas>=3.1.1",
+    "python-multipart>=0.0.34",
     "requests>=2.34.2",
+    "scikit-learn>=1.9.1",
+    "uvicorn>=0.54.0",
 ]
