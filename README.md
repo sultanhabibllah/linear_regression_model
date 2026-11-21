@@ -3,7 +3,10 @@
 
 ## 1. Mission and Problem
 
-My GCGO mission focuses on Job Creation and Education, particularly addressing youth unemployment across Africa. Youth unemployment is influenced by economic conditions, education, demographics, and labour-market structures. This project uses machine learning to estimate youth unemployment rates from World Bank indicators. The resulting model is accessible through a FastAPI backend and a Flutter mobile application.
+My GCGO mission focuses on Job Creation and Education by addressing youth unemployment across Africa. 
+Youth unemployment is influenced by economic, education, demographics, and labour-market structures. 
+This project uses machine learning to estimate youth unemployment rates from World Bank indicators. 
+The resulting model is accessible through a FastAPI backend and a Flutter mobile application.
 
 ## 2. Dataset and Source
 
